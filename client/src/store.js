@@ -13,17 +13,39 @@ let apiQuote = Axios.create({
   timeout: 3000
 });
 
+let apiPhoto = Axios.create({
+  baseURL: "",
+  timeout: 3000
+})
+var production = !window.location.host.includes('localhost');
+var baseUrl = production ? '//lit-hamlet-73267.herokuapp.com/' : '//localhost:3000/';
+
+let auth = Axios.create({
+  baseURL: baseUrl + "auth/",
+  timeout: 3000,
+  withCredentials: true
+});
+
+let api = Axios.create({
+  baseURL: baseUrl + "api/",
+  timeout: 3000,
+  withCredentials: true
+});
 export default new Vuex.Store({
   state: {
     user: {},
     weather: {},
     todo: [],
     music: {},
-    quote: {}
+    quote: {},
+    photo: {}
   },
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    setPhoto(state, photo) {
+      state.photo = photo
     },
     setTodo(state, todo) {
       state.todo = todo
@@ -40,6 +62,27 @@ export default new Vuex.Store({
   },
   actions: {
     //User
+    register({ commit }, newUser) {
+      auth.post("register", newUser).then(res => {
+        commit("setUser", res.data);
+      });
+    },
+    authenticate({ commit }) {
+      auth.get("authenticate").then(res => {
+        commit("setUser", res.data);
+      });
+    },
+    login({ commit }, creds) {
+      auth.post("login", creds).then(res => {
+        commit("setUser", res.data);
+      });
+    },
+    logout({ commit }) {
+      auth.delete("logout").then(() => {
+        commit("clearUser");
+      });
+    },
+
     //Quote
     getQuote({ commit }) {
       apiQuote.get()
