@@ -10,9 +10,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-image: url("./assets/pinkClouds.jpeg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-image: url("./assets/pinkClouds.jpeg");
+  // background-repeat: no-repeat;
+  // background-size: cover;
 }
 #nav {
   padding: 30px;
