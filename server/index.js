@@ -42,6 +42,11 @@ server.use((req, res, next) => {
 })
 
 //YOUR ROUTES HERE!!!!!!
+let listRoutes = require('./server-assets/routes/listRoutes')
+server.use('/api/lists', listRoutes)
+
+let taskRoutes = require('./server-assets/routes/taskRoutes')
+server.use('/api/tasks', taskRoutes)
 
 //Catch all
 server.get('*', (req, res, next) => {
